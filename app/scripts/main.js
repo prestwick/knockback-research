@@ -1,42 +1,37 @@
-/*global $, document, io, ko, modelModule, viewModelModule*/
-
+/*global $, document, ko, modelModule, viewModelModule, socketModule*/
 $(document).ready(function () {
     'use strict';
-    var socket = io.connect('http://localhost:1337'),
+    var socket = socketModule.socket,
         numericInput = $('#numeric1'),
         rateSlider = $('#slider1'),
         gauge1 = $('#gauge1'),
         gauge2 = $('#gauge2'),
+        linearGauge = $('#linearGauge'),
         mm = modelModule,
         vmm = viewModelModule,
-        guage1ViewModel,
-        guage2ViewModel,
+        gauge1ViewModel,
+        gauge2ViewModel,
+        linearGaugeViewModel,
         rateSliderViewModel,
         numericInputViewModel;
         
 //setup View Models
-    guage1ViewModel = new vmm.GuageViewModel(mm.gaugeModelOne);
-    guage2ViewModel = new vmm.GuageViewModel(mm.gaugeModelTwo);
+    gauge1ViewModel = new vmm.gaugeViewModel(mm.gaugeModelOne);
+    gauge2ViewModel = new vmm.gaugeViewModel(mm.gaugeModelTwo);
+    linearGaugeViewModel = new vmm.gaugeViewModel(mm.gaugeModelOne);
     rateSliderViewModel = new vmm.SliderViewModel(mm.sliderModel);
     numericInputViewModel = new vmm.NumericInputViewModel(mm.numericInputModel);
     
 //bind ViewModels to View
-    ko.applyBindings(guage1ViewModel, gauge1[0]);
-    ko.applyBindings(guage2ViewModel, gauge2[0]);
+    ko.applyBindings(gauge1ViewModel, gauge1[0]);
+    ko.applyBindings(gauge2ViewModel, gauge2[0]);
+    ko.applyBindings(linearGaugeViewModel, linearGauge[0]);
     ko.applyBindings(rateSliderViewModel, rateSlider[0]);
     ko.applyBindings(numericInputViewModel, numericInput[0]);
     
-    
-//setup event handlers on view
-    rateSlider.on('slideEnd', function (event) {
-        var value = event.args.value;
-        socket.emit('runtime-data-direction-b', {rate: value});
-    });
-    
-//websocket implementation
+//update models with incoming Web socket data
     socket.on('runtime-data-direction-a', function (data) {
         mm.gaugeModelOne.set({'value': data[0].value});
-        //mm.gaugeModelOne.attributes.updateVal(data[0].value);
         mm.gaugeModelTwo.set({'value': data[1].value});
         mm.numericInputModel.set({'value': data[2].value});
     });

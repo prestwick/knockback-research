@@ -13,11 +13,7 @@ var modelModule = (function () {
         value: 0,
         min: 0,
         max: 100,
-        disabled: false,
-//        updateVal: function (val) {
-//            this.value = val;
-//            //this.set({value: val});
-//        }
+        disabled: false
     });
     
     gaugeModelTwo = new Backbone.Model({
