@@ -16,9 +16,9 @@ $(document).ready(function () {
         numericInputViewModel;
         
 //setup View Models
-    gauge1ViewModel = new vmm.gaugeViewModel(mm.gaugeModelOne);
-    gauge2ViewModel = new vmm.gaugeViewModel(mm.gaugeModelTwo);
-    linearGaugeViewModel = new vmm.gaugeViewModel(mm.gaugeModelOne);
+    gauge1ViewModel = new vmm.GaugeViewModel(mm.gaugeModelOne);
+    gauge2ViewModel = new vmm.GaugeViewModel(mm.gaugeModelTwo);
+    linearGaugeViewModel = new vmm.GaugeViewModel(mm.gaugeModelOne);
     rateSliderViewModel = new vmm.SliderViewModel(mm.sliderModel);
     numericInputViewModel = new vmm.NumericInputViewModel(mm.numericInputModel);
     

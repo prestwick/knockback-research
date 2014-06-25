@@ -4,7 +4,7 @@
 // In this module there is one view model constructor for each type of widget. 
 var viewModelModule = (function () {
     'use strict';
-    var gaugeViewModel = function (model) {
+    var GaugeViewModel = function (model) {
             this.value = kb.observable(model, 'value');
             this.min = kb.observable(model, 'min');
             this.max = kb.observable(model, 'max');
@@ -25,7 +25,7 @@ var viewModelModule = (function () {
             };
         };
     return {
-        gaugeViewModel: gaugeViewModel,
+        GaugeViewModel: GaugeViewModel,
         NumericInputViewModel: NumericInputViewModel,
         SliderViewModel: SliderViewModel
     };
